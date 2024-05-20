@@ -1,0 +1,33 @@
+<configuration>
+
+    <!-- Define a console appender -->
+    <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define a rolling file appender -->
+    <appender name="myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>journalApp.log</file> <!-- Specify the log file name -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>journalApp-%d{yy-MM-dd_HH-mm}.%i.log
+            </fileNamePattern> <!-- Define the rolling file name pattern -->
+            <maxFileSize>10MB</maxFileSize> <!-- Define the maximum size of each log file -->
+            <maxHistory>10</maxHistory> <!-- Define the maximum number of archived log files -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Set up the root logger level and appenders -->
+    <root level="INFO">
+        <appender-ref ref="myConsoleAppender"/> <!-- Attach console appender -->
+        <appender-ref ref="myFileAppender"/> <!-- Attach file appender -->
+    </root>
+
+    <!-- Add logger for UserController with debug level -->
+    <logger name="com.demo.UserManagement.controller.UserController" level="DEBUG"/>
+
+</configuration>
